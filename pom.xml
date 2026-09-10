@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>ru.spb.osiptsoff.finance-manager</groupId>
+	<groupId>ru.spb.osiptsoff.finance</groupId>
 	<artifactId>parent</artifactId>
 	<version>${project.version}</version>
 	<packaging>pom</packaging>
@@ -11,7 +11,10 @@
 	<properties>
 		<project.version>0.0.1-SNAPSHOT</project.version>
 
-		<java.version>24</java.version>
+		<java.version>17</java.version>
+	    <maven.compiler.source>${java.version}</maven.compiler.source>
+    	<maven.compiler.target>${java.version}</maven.compiler.target>
+
 		<lombok.version>1.18.46</lombok.version>
 		<spring-core.version>7.0.8</spring-core.version>
 	</properties>

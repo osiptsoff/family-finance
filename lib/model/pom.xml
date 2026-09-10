@@ -3,12 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>ru.spb.osiptsoff.finance-manager</groupId>
+		<groupId>ru.spb.osiptsoff.finance</groupId>
 		<artifactId>parent</artifactId>
 		<version>${project.version}</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>model</artifactId>
+	<packaging>jar</packaging>
 
 </project>
