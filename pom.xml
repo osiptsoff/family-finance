@@ -11,17 +11,17 @@
 	<properties>
 		<project.version>0.0.1-SNAPSHOT</project.version>
 
-		<java.version>17</java.version>
+		<java.version>24</java.version>
 	    <maven.compiler.source>${java.version}</maven.compiler.source>
     	<maven.compiler.target>${java.version}</maven.compiler.target>
 
 		<lombok.version>1.18.46</lombok.version>
-		<spring-core.version>7.0.8</spring-core.version>
-		<spring-boot.version>4.1.0</spring-boot.version>
+		<spring-boot.version>4.1.1</spring-boot.version>
 	</properties>
 
 	<modules>
 		<module>lib/model</module>
+		<module>service/crud</module>
 	</modules>
 
 	<dependencies>
@@ -32,6 +32,18 @@
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version> 
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>
