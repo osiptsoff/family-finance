@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import lombok.Data;
 
 @Data
-public class Deposit {
+public class Deposit implements Identifiable {
     @Id 
     private UUID id;
     private Target target;

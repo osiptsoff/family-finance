@@ -11,7 +11,7 @@ import lombok.Data;
 
 @Data
 @Document
-public class Target {
+public class Target implements Identifiable {
     @Id
     private UUID id;
     private Currency currency;
