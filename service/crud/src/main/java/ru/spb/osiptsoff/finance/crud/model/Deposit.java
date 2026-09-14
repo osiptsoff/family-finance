@@ -1,4 +1,4 @@
-package ru.spb.osiptsoff.finance.lib.model;
+package ru.spb.osiptsoff.finance.crud.model;
 
 import java.util.Collection;
 import java.util.UUID;
@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import lombok.Data;
 
 @Data
-public class Deposit implements Identifiable {
+public class Deposit implements Identifiable<UUID> {
     @Id 
     private UUID id;
     private Target target;

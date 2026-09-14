@@ -1,4 +1,4 @@
-package ru.spb.osiptsoff.finance.lib.model;
+package ru.spb.osiptsoff.finance.crud.model;
 
 import java.util.Collection;
 import java.util.Currency;
@@ -11,7 +11,7 @@ import lombok.Data;
 
 @Data
 @Document
-public class Target implements Identifiable {
+public class Target implements Identifiable<UUID> {
     @Id
     private UUID id;
     private Currency currency;

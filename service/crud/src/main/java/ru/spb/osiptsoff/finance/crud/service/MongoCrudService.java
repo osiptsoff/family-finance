@@ -1,49 +1,83 @@
 package ru.spb.osiptsoff.finance.crud.service;
 
-import java.util.Collection;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import ru.spb.osiptsoff.finance.lib.model.Identifiable;
+import ru.spb.osiptsoff.finance.crud.dto.DtoConversionFactory;
+import ru.spb.osiptsoff.finance.crud.model.Identifiable;
+import ru.spb.osiptsoff.finance.lib.dto.Dto;
+import ru.spb.osiptsoff.finance.lib.dto.PageRequestDto;
+import ru.spb.osiptsoff.finance.lib.dto.PageResponseDto;
+import ru.spb.osiptsoff.finance.lib.exception.CrudException;
+import ru.spb.osiptsoff.finance.lib.exception.message.CommonMessagesProvider;
 
+/**
+ * @param <T> класс Id
+ * @param <U> класс Dto
+ * @param <V> класс модели
+ */
 @RequiredArgsConstructor
-public abstract class MongoCrudService<T extends Identifiable> {
-    private final MongoRepository<T, UUID> repository;
+@Transactional
+@Service
+public abstract class MongoCrudService<U extends Dto, V extends Identifiable<UUID>> implements CrudService<UUID, U> {
+    private final CommonMessagesProvider commonMessagesProvider = new CommonMessagesProvider();
+    private final MongoRepository<V, UUID> repository;
+    private final DtoConversionFactory<UUID, U, V> dtoConversionFactory;
 
-    public T create(T object) {
-        if (object.getId() != null && repository.existsById(object.getId())) {
-            // todo create and use custom exceptions
-            throw new RuntimeException("Object exists already.");
+    public U create(U dto) {
+        V object = dtoConversionFactory.convertFromDto(dto);
+
+        if (isObjectExists(object)) {
+            throw new CrudException(commonMessagesProvider.getObjectExistsMessage());
         }
 
-        return upsert(object);
+        return dtoConversionFactory.convertToDto(repository.insert(object));
     }
 
-    // todo pagination
-    public Collection<T> readAll() {
-        return repository.findAll();
+    public PageResponseDto<U> readAll(PageRequestDto pageRequestDto) {
+        Page<V> page = repository.findAll(PageRequest.of(
+            pageRequestDto.getPageNumber(),
+            pageRequestDto.getPageSize()));
+
+        PageResponseDto<U> pageResponseDto = new PageResponseDto<>();
+        pageResponseDto.setPages(page.getTotalPages());
+        pageResponseDto.setSize(page.getNumberOfElements());
+        pageResponseDto.setContent(page.getContent().stream()
+            .map(dtoConversionFactory::convertToDto)
+            .toList());
+
+        return pageResponseDto;
     }
 
-    public T readById(UUID id) {
-        return repository.findById(id).orElse(null);
+    public U readById(UUID id) {
+        V object = repository.findById(id).orElseThrow(
+            () -> new CrudException(commonMessagesProvider.getObjectDoesNotExistMessage())
+        );
+
+        return dtoConversionFactory.convertToDto(object);
     }
 
-    public T update(T object) {
-        if (object.getId() == null || !repository.existsById(object.getId())) {
-            // todo create and use custom exceptions
-            throw new RuntimeException("Object does not exists or missing id");
+    public U update(U dto) {
+        V object = dtoConversionFactory.convertFromDto(dto);
+
+        if (!isObjectExists(object)) {
+            throw new CrudException(commonMessagesProvider.getObjectDoesNotExistMessage());
         }
 
-        return upsert(object);
+        return dtoConversionFactory.convertToDto(repository.save(object));
     }
 
-    public void delete(UUID id) {
+    public void deleteById(UUID id) {
         repository.deleteById(id);
     }
 
-    private T upsert(T object) {
-        return repository.insert(object);
+    private boolean isObjectExists(V object) {
+        return object.getId() != null && repository.existsById(object.getId());
     }
 }

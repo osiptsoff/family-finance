@@ -20,7 +20,8 @@
 	</properties>
 
 	<modules>
-		<module>lib/model</module>
+		<module>lib/exception</module>
+		<module>lib/dto</module>
 		<module>service/crud</module>
 	</modules>
 

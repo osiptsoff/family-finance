@@ -1,4 +1,4 @@
-package ru.spb.osiptsoff.finance.lib.model;
+package ru.spb.osiptsoff.finance.crud.model;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 @Document
-public class Transaction implements Identifiable {
+public class Transaction implements Identifiable<UUID> {
     @Id
     private UUID id;
     private Deposit deposit;

@@ -9,15 +9,6 @@
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>model</artifactId>
+	<artifactId>dto</artifactId>
 	<packaging>jar</packaging>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-mongodb</artifactId>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
-
 </project>

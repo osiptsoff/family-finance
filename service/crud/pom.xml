@@ -14,7 +14,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>ru.spb.osiptsoff.finance</groupId>
-			<artifactId>model</artifactId>
+			<artifactId>dto</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ru.spb.osiptsoff.finance</groupId>
+			<artifactId>exception</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
