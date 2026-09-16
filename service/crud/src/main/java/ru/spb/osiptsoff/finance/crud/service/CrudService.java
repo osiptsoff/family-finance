@@ -1,12 +1,13 @@
 package ru.spb.osiptsoff.finance.crud.service;
 
 import ru.spb.osiptsoff.finance.lib.dto.Dto;
+import ru.spb.osiptsoff.finance.lib.dto.PageRequestDto;
 import ru.spb.osiptsoff.finance.lib.dto.PageResponseDto;
 
 public interface CrudService<T, U extends Dto> {
     U create(U object);
 
-    PageResponseDto<U> findAll();
+    PageResponseDto<U> findAll(PageRequestDto pageRequestDto);
 
     U readById(T id);
 

@@ -30,6 +30,7 @@ public abstract class MongoCrudService<U extends Dto, V extends Identifiable<UUI
     private final MongoRepository<V, UUID> repository;
     private final DtoConverter<UUID, U, V> dtoConversionFactory;
 
+    @Override 
     public U create(U dto) {
         V object = dtoConversionFactory.convertFromDto(dto);
 
@@ -40,7 +41,8 @@ public abstract class MongoCrudService<U extends Dto, V extends Identifiable<UUI
         return dtoConversionFactory.convertToDto(repository.insert(object));
     }
 
-    public PageResponseDto<U> readAll(PageRequestDto pageRequestDto) {
+    @Override 
+    public PageResponseDto<U> findAll(PageRequestDto pageRequestDto) {
         Page<V> page = repository.findAll(PageRequest.of(
             pageRequestDto.getPageNumber(),
             pageRequestDto.getPageSize()));
@@ -55,6 +57,7 @@ public abstract class MongoCrudService<U extends Dto, V extends Identifiable<UUI
         return pageResponseDto;
     }
 
+    @Override 
     public U readById(UUID id) {
         V object = repository.findById(id).orElseThrow(
             () -> new CrudException(commonMessagesProvider.getObjectDoesNotExistMessage())
@@ -63,6 +66,7 @@ public abstract class MongoCrudService<U extends Dto, V extends Identifiable<UUI
         return dtoConversionFactory.convertToDto(object);
     }
 
+    @Override
     public U update(U dto) {
         V object = dtoConversionFactory.convertFromDto(dto);
 
@@ -73,6 +77,7 @@ public abstract class MongoCrudService<U extends Dto, V extends Identifiable<UUI
         return dtoConversionFactory.convertToDto(repository.save(object));
     }
 
+    @Override
     public void deleteById(UUID id) {
         repository.deleteById(id);
     }
