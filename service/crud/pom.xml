@@ -11,6 +11,10 @@
 
 	<artifactId>crud</artifactId>
 
+	<properties>
+		<mapstruct.version>1.6.3</mapstruct.version>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>ru.spb.osiptsoff.finance</groupId>
@@ -34,6 +38,13 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>${mapstruct.version}</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>

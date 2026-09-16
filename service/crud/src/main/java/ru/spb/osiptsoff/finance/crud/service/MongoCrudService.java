@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import ru.spb.osiptsoff.finance.crud.dto.DtoConversionFactory;
+import ru.spb.osiptsoff.finance.crud.dto.DtoConverter;
 import ru.spb.osiptsoff.finance.crud.model.Identifiable;
 import ru.spb.osiptsoff.finance.lib.dto.Dto;
 import ru.spb.osiptsoff.finance.lib.dto.PageRequestDto;
@@ -28,7 +28,7 @@ import ru.spb.osiptsoff.finance.lib.exception.message.CommonMessagesProvider;
 public abstract class MongoCrudService<U extends Dto, V extends Identifiable<UUID>> implements CrudService<UUID, U> {
     private final CommonMessagesProvider commonMessagesProvider = new CommonMessagesProvider();
     private final MongoRepository<V, UUID> repository;
-    private final DtoConversionFactory<UUID, U, V> dtoConversionFactory;
+    private final DtoConverter<UUID, U, V> dtoConversionFactory;
 
     public U create(U dto) {
         V object = dtoConversionFactory.convertFromDto(dto);

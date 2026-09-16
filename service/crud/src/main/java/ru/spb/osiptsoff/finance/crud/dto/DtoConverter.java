@@ -8,8 +8,7 @@ import ru.spb.osiptsoff.finance.lib.dto.Dto;
  * @param <U> класс Dto
  * @param <V> класс модели
  */
-public interface DtoConversionFactory<T, U extends Dto, V extends Identifiable<T>> {
+public interface DtoConverter<T, U extends Dto, V extends Identifiable<T>> {
     U convertToDto(V object);
     V convertFromDto(U dto);
-    
 }
