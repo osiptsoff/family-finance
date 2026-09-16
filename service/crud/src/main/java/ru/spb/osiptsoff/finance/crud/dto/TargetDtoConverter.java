@@ -3,27 +3,29 @@ package ru.spb.osiptsoff.finance.crud.dto;
 import java.util.UUID;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import ru.spb.osiptsoff.finance.crud.model.Deposit;
+import lombok.RequiredArgsConstructor;
+import ru.spb.osiptsoff.finance.lib.dto.Deposit;
 import ru.spb.osiptsoff.finance.lib.dto.Target;
 
-@Mapper 
-public interface TargetDtoConverter extends DtoConverter<UUID, Target,
+@Mapper
+@Component
+@RequiredArgsConstructor(onConstructor = @__(@Autowired ))
+public abstract class TargetDtoConverter implements DtoConverter<UUID, Target,
         ru.spb.osiptsoff.finance.crud.model.Target> {
-    @Mapping(source = "deposits", target = "depositIds")
-    Target convertToDto(ru.spb.osiptsoff.finance.crud.model.Target object);
+    private final DepositDtoConverter depositDtoConverter;
 
-    @Mapping(source = "depositIds", target = "depositIds")
-    ru.spb.osiptsoff.finance.crud.model.Target convertFromDto(Target dto);
+    public abstract Target convertToDto(ru.spb.osiptsoff.finance.crud.model.Target object);
 
-    default Deposit mapIdToTransaction(UUID id) {
-        Deposit deposit = new Deposit();
-        deposit.setId(id);
-        return deposit;
+    public abstract ru.spb.osiptsoff.finance.crud.model.Target convertFromDto(Target dto);
+
+    protected Deposit mapDepositDtoToModel(ru.spb.osiptsoff.finance.crud.model.Deposit model) {
+        return depositDtoConverter.convertToDto(model);
     }
 
-    default UUID mapTransactionToId(Deposit deposit) {
-        return deposit.getId();
+    protected ru.spb.osiptsoff.finance.crud.model.Deposit mapDepositModelToDto(Deposit dto) {
+        return depositDtoConverter.convertFromDto(dto);
     }
 }

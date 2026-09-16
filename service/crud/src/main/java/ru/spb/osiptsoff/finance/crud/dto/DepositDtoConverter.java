@@ -4,11 +4,13 @@ import java.util.UUID;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.stereotype.Component;
 
 import ru.spb.osiptsoff.finance.crud.model.Transaction;
 import ru.spb.osiptsoff.finance.lib.dto.Deposit;
 
-@Mapper 
+@Mapper
+@Component
 public interface DepositDtoConverter extends DtoConverter<UUID, Deposit,
         ru.spb.osiptsoff.finance.crud.model.Deposit> {
     @Mapping(source = "transactionIds", target = "transactions")

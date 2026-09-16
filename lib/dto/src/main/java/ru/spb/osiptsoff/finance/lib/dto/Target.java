@@ -11,5 +11,5 @@ public class Target implements Dto {
     private UUID id;
     private Currency currency;
     private String description;
-    private Collection<UUID> depositIds;
+    private Collection<Deposit> deposits;
 }
