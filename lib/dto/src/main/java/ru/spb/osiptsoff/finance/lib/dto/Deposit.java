@@ -8,6 +8,7 @@ import lombok.Data;
 @Data 
 public class Deposit implements Dto {
     private UUID id;
+    private UUID targetId;
     private Double amount;
     private String description;
     private Collection<UUID> transactionIds;

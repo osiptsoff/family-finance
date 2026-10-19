@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 public class Transaction implements Dto {
     private UUID id;
+    private UUID depositId;
     private String type;
     private LocalDateTime datetime;
     private Double amount;
