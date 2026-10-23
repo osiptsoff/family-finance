@@ -7,7 +7,7 @@ import java.util.UUID;
 import lombok.Data;
 
 @Data
-public class Target implements Dto {
+public class Target implements IdentifiableDto<UUID> {
     private UUID id;
     private Currency currency;
     private String description;

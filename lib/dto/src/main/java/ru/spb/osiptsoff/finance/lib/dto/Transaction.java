@@ -6,7 +6,7 @@ import java.util.UUID;
 import lombok.Data;
 
 @Data
-public class Transaction implements Dto {
+public class Transaction implements IdentifiableDto<UUID> {
     private UUID id;
     private UUID depositId;
     private String type;

@@ -5,11 +5,14 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import jakarta.servlet.ServletException;
 import ru.spb.osiptsoff.finance.lib.exception.CrudException;
 
 @RestControllerAdvice
@@ -18,12 +21,18 @@ public class ControllerAdvice {
 
     @ExceptionHandler({ CrudException.class })
     public ResponseEntity<Map<String, Object>> handle(CrudException e) {
-        LOG.error("Bad request", e);
+        LOG.debug("Bad request", e);
+        return getEntity(HttpStatus.BAD_REQUEST, e.getMessage());
+    }
+
+    @ExceptionHandler({ ServletException.class, HttpMessageNotReadableException.class })
+    public ResponseEntity<Map<String, Object>> handle(NestedRuntimeException e) {
+        LOG.debug("Bad request", e);
         return getEntity(HttpStatus.BAD_REQUEST, e.getMessage());
     }
 
     @ExceptionHandler({ Exception.class })
-    public ResponseEntity<Map<String, Object>> handle(Exception e) {
+    public ResponseEntity<Map<String, Object>> handleCritical(Exception e) {
         LOG.error("Unhandled error", e);
         return getEntity(HttpStatus.INTERNAL_SERVER_ERROR, "Service error");
     }

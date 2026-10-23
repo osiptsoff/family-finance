@@ -7,18 +7,17 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.RequiredArgsConstructor;
 import ru.spb.osiptsoff.finance.crud.service.CrudService;
-import ru.spb.osiptsoff.finance.lib.dto.Dto;
+import ru.spb.osiptsoff.finance.lib.dto.IdentifiableDto;
 import ru.spb.osiptsoff.finance.lib.dto.PageRequestDto;
 import ru.spb.osiptsoff.finance.lib.dto.PageResponseDto;
 
 @RequiredArgsConstructor 
-public abstract class CrudController<T extends Dto> {
+public abstract class CrudController<T extends IdentifiableDto<UUID>> {
     private final CrudService<UUID, T> service;
 
     @PostMapping("")
@@ -35,13 +34,14 @@ public abstract class CrudController<T extends Dto> {
     public PageResponseDto<T> find(@RequestParam("pageNumber") Optional<Integer> pageNumber,
             @RequestParam("pageSize") Optional<Integer> pageSize) {
         PageRequestDto pageRequestDto = new PageRequestDto(
-                pageNumber.orElse(1),
+                pageNumber.orElse(0),
                 pageSize.orElse(10));
         return service.findAll(pageRequestDto);
     }
 
-    @PutMapping("")
-    public T update(@RequestBody T dto) {
+    @PostMapping("/{id}")
+    public T update(@PathVariable("id") UUID id, @RequestBody T dto) {
+        dto.setId(id);
         return service.update(dto);
     }
 
