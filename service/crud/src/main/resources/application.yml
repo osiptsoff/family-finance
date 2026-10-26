@@ -1,3 +1,9 @@
 spring:
   application:
     name: crud
+  mongodb:
+    representation:
+      uuid: standard
+    database: finances      
+server:
+  port: 8000

@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+          - id: crud
+            uri: http://localhost:8000
+            predicates:
+            - Path=/target/**, /transaction/**
