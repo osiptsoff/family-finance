@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+          - id: crud
+            uri: lb://crud
+            predicates:
+            - Path=/target/**, /transaction/**
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+      

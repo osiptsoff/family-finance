@@ -1,4 +1,4 @@
-package ru.spb.osiptsoff.finance.gateway;
+package ru.spb.osiptsoff.finance.discovery;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

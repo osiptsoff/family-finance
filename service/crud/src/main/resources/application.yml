@@ -1,14 +1,6 @@
 spring:
   application:
     name: crud
-  mongodb:
-    representation:
-      uuid: standard
-    database: finances      
-server:
-  port: 0
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
+  config:
+    import:
+    - configserver:http://localhost:8888
