@@ -7,10 +7,19 @@ spring:
       server:
         webflux:
           routes:
-          - id: crud
-            uri: lb://crud
+          - id: web
+            uri: lb://web-bff
             predicates:
-            - Path=/target/**, /transaction/**
+            - Path=/webapp/**
+            filters:
+            - StripPrefix=1
+          - id: mobile
+            uri: lb://mobile-bff
+            predicates:
+            - Path=/mobile/**
+            filters:
+            - StripPrefix=1
+
 eureka:
   client:
     service-url:
