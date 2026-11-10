@@ -1,10 +1,11 @@
+server:
+  port: 0
+
 spring:
   mongodb:
     representation:
       uuid: standard
     database: finances      
-server:
-  port: 0
 
 eureka:
   client:

@@ -3,4 +3,4 @@ spring:
     name: crud
   config:
     import:
-    - configserver:http://localhost:8888
+    - configserver:${CONFIG_SERVER_URL}
