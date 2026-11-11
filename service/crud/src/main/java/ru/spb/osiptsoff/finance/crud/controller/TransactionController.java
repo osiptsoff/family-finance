@@ -7,7 +7,7 @@ import ru.spb.osiptsoff.finance.crud.service.TransactionService;
 import ru.spb.osiptsoff.finance.lib.dto.Transaction;
 
 @RestController
-@RequestMapping("/transaction")
+@RequestMapping("/api/transaction")
 public class TransactionController extends CrudController<Transaction> {
 
     public TransactionController(TransactionService service) {

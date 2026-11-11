@@ -7,7 +7,7 @@ import ru.spb.osiptsoff.finance.crud.service.TargetService;
 import ru.spb.osiptsoff.finance.lib.dto.Target;
 
 @RestController
-@RequestMapping("/target")
+@RequestMapping("/api/target")
 public class TargetController extends CrudController<Target> {
 
     public TargetController(TargetService service) {
