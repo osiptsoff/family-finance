@@ -7,23 +7,39 @@ spring:
       server:
         webflux:
           routes:
-          - id: web
-            uri: lb://web-bff
+          - id: crud
+            uri: lb://crud
             predicates:
-            - Path=/webapp/**
+            - Path=/{platform:(mobile|webapp)}/api/{entity:(target|transaction)}/**
             filters:
+            # возможно, в будущем будет разделение на логику для mobile и web
             - StripPrefix=1
-          - id: mobile
-            uri: lb://mobile-bff
-            predicates:
-            - Path=/mobile/**
-            filters:
-            - StripPrefix=1
+            - SaveSession
+            - TokenRelay=keycloak
+  security:
+    oauth2:
+      client:
+        provider:
+          finance-app:
+            issuer-uri: http://localhost:8080/realms/finance-app
+        registration:
+          keycloak:
+            provider: finance-app
+            client-id: finance-webapp
+            client-secret: ${KEYCLOAK_CLIENT_SECRET}
+            authorization-grant-type: PKCE
+            scope:
+            - openid
+            - profile
+            - email
+            - offline_access
   data:
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
       password: ${REDIS_PASSWORD}
+  session:
+    store-type: redis
 
 eureka:
   client:
