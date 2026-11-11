@@ -6,7 +6,7 @@
 		<groupId>ru.spb.osiptsoff.finance</groupId>
 		<artifactId>parent</artifactId>
 		<version>${project.version}</version>
-		<relativePath>../../pom.xml</relativePath>
+		<relativePath>../../../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>web-bff</artifactId>
@@ -19,6 +19,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-data-redis</artifactId>
 		</dependency>
 	</dependencies>
 </project>

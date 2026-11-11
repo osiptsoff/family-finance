@@ -29,7 +29,7 @@
 		<module>lib/dto</module>
 
 		<module>service/crud</module>
-		<module>service/web-bff</module>
+		<module>service/bff/web-bff</module>
 	</modules>
 
 	<dependencies>

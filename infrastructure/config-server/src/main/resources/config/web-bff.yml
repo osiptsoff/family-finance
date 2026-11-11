@@ -16,6 +16,9 @@ spring:
             authorization-grant-type: PKCE
             scope:
             - openid
+            - profile
+            - email
+            - offline_access
             
 eureka:
   client:
