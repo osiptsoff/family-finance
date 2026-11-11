@@ -30,10 +30,9 @@ public class SecurityConfig {
                 .csrfTokenRequestHandler(new XorServerCsrfTokenRequestAttributeHandler())
             )
             .authorizeExchange(auth -> auth
-                .pathMatchers("/{platform:(mobile|webapp)}/api/{entity:(target|transaction)}/**")
+                .pathMatchers("/{platform:(?:mobile|webapp)}/api/{entity:(?:target|transaction)}/**")
                     .authenticated()
-                .pathMatchers("/oauth2/**", "/login/**",
-                                "/error").permitAll()
+                .pathMatchers("/oauth2/**", "/login/**", "/error/**").permitAll()
                 .anyExchange().denyAll()
             )
             .oauth2Login(Customizer.withDefaults())

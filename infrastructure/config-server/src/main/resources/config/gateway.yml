@@ -10,7 +10,7 @@ spring:
           - id: crud
             uri: lb://crud
             predicates:
-            - Path=/{platform:(mobile|webapp)}/api/{entity:(target|transaction)}/**
+            - Path=/{platform:(?:mobile|webapp)}/api/{entity:(?:target|transaction)}/**
             filters:
             # возможно, в будущем будет разделение на логику для mobile и web
             - StripPrefix=1
@@ -21,7 +21,7 @@ spring:
       client:
         provider:
           finance-app:
-            issuer-uri: http://localhost:8080/realms/finance-app
+            issuer-uri: http://localhost:6080/realms/finance-app
         registration:
           keycloak:
             provider: finance-app
