@@ -1,6 +1,0 @@
-spring:
-  application:
-    name: web-bff
-  config:
-    import:
-    - configserver:${CONFIG_SERVER_URL}
