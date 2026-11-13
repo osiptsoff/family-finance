@@ -27,7 +27,7 @@ spring:
             provider: finance-app
             client-id: finance-webapp
             client-secret: ${KEYCLOAK_CLIENT_SECRET}
-            authorization-grant-type: PKCE
+            authorization-grant-type: authorization_code
             scope:
             - openid
             - profile
