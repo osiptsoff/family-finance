@@ -30,9 +30,9 @@ spring:
             authorization-grant-type: authorization_code
             scope:
             - openid
+            - basic
             - profile
-            - email
-            - offline_access
+
   data:
     redis:
       host: ${REDIS_HOST:localhost}

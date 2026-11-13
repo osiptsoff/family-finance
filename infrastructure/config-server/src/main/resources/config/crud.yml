@@ -6,6 +6,11 @@ spring:
     representation:
       uuid: standard
     database: finances      
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:6080/realms/finance-app
 
 eureka:
   client:
